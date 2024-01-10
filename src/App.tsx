@@ -19,17 +19,16 @@ import HoldersTable from "./sections/HoldersTable";
 
 // import constants
 import { chainsIds } from "./constants/chains";
+import { apiKey } from "./constants/api";
 
-type HolderAddress = {
-  amount: number;
-  usd_value: number;
-  wallet_address: string;
-};
+// import types
+import { HolderAddress, TokenData } from "./types/types";
 
 function App() {
   const [selectedChain, setSelectedChain] = useState("1");
   const [inputValue, setInputValue] = useState("");
   const [tokenHolders, setTokenHolders] = useState<HolderAddress[]>([]);
+  const [tokenData, setTokenData] = useState<TokenData | null>();
 
   const handleChainChange = (event: SelectChangeEvent) => {
     setSelectedChain(event.target.value);
@@ -45,7 +44,7 @@ function App() {
       {
         method: "GET",
         headers: {
-          "x-api-key": "2ajP2MBTYZlQA7f6RSXWc6Pk1gU",
+          "x-api-key": apiKey,
           accept: "application/json",
         },
       }
@@ -55,8 +54,20 @@ function App() {
       .then((data) => setTokenHolders(data.data))
 
       .catch((error) => console.error(error));
-  };
 
+    fetch(
+      `https://api.chainbase.online/v1/token/metadata?chain_id=${selectedChain}&contract_address=${inputValue}`,
+      {
+        method: "GET",
+        headers: {
+          "x-api-key": apiKey,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => setTokenData(data.data))
+      .catch((error) => console.error(error));
+  };
   return (
     <>
       <Grid container sx={{ mt: 10 }}>
@@ -72,7 +83,7 @@ function App() {
                 labelId="chose-chain"
                 value={selectedChain}
                 onChange={handleChainChange}
-                sx={{ width: "160px", borderRadius: "25px" }}
+                sx={{ width: "160px", borderRadius: "25px", pl: 2 }}
               >
                 {chainsIds.map((item) => (
                   <MenuItem key={`chain-id-${item.id}`} value={item.id}>
@@ -106,16 +117,31 @@ function App() {
         </Stack>
       </Grid>
       <Grid container sx={{ justifyContent: "center", alignItems: "center" }}>
-        <Box
-          sx={{
-            mt: 10,
-            width: "1200px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        <Stack
+          direction={"column"}
+          spacing={2}
+          justifyContent={"center"}
+          alignItems={"center"}
         >
-          <HoldersTable holders={tokenHolders} />
-        </Box>
+          <Typography variant="h6">
+            Token:{" "}
+            {tokenData && (
+              <img height={16} width={16} src={tokenData?.logos[0].uri} />
+            )}{" "}
+            {tokenData?.symbol}
+          </Typography>
+
+          <Box
+            sx={{
+              mt: 10,
+              width: "1200px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <HoldersTable holders={tokenHolders} />
+          </Box>
+        </Stack>
       </Grid>
     </>
   );

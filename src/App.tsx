@@ -2,7 +2,9 @@ import {
   Box,
   FormControl,
   Grid,
+  IconButton,
   Input,
+  InputAdornment,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -10,8 +12,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { chainsIds } from "./constants/chains";
+import SearchIcon from "@mui/icons-material/Search";
+
+// import components
 import HoldersTable from "./sections/HoldersTable";
+
+// import constants
+import { chainsIds } from "./constants/chains";
 
 type HolderAddress = {
   amount: number;
@@ -21,9 +28,7 @@ type HolderAddress = {
 
 function App() {
   const [selectedChain, setSelectedChain] = useState("1");
-  const [selectedToken, setSelectedToken] = useState(
-    "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
-  );
+  const [inputValue, setInputValue] = useState("");
   const [tokenHolders, setTokenHolders] = useState<HolderAddress[]>([]);
 
   const handleChainChange = (event: SelectChangeEvent) => {
@@ -31,34 +36,37 @@ function App() {
   };
 
   const handleAddress = (event: any) => {
-    setSelectedToken(event.target.value);
+    setInputValue(event.target.value);
   };
 
-  fetch(
-    `https://api.chainbase.online/v1/token/top-holders?chain_id=${selectedChain}&contract_address=${selectedToken}&page=1&limit=100`,
-    {
-      method: "GET",
-      headers: {
-        "x-api-key": "2ajP2MBTYZlQA7f6RSXWc6Pk1gU", // Replace the field with your API key.
-        accept: "application/json",
-      },
-    }
-  )
-    .then((response) => response.json())
+  const sendTokenToApi = () => {
+    fetch(
+      `https://api.chainbase.online/v1/token/top-holders?chain_id=${selectedChain}&contract_address=${inputValue}&page=1&limit=100`,
+      {
+        method: "GET",
+        headers: {
+          "x-api-key": "2ajP2MBTYZlQA7f6RSXWc6Pk1gU",
+          accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
 
-    .then((data) => setTokenHolders(data.data))
+      .then((data) => setTokenHolders(data.data))
 
-    .catch((error) => console.error(error));
-
-  // console.log(data);
+      .catch((error) => console.error(error));
+  };
 
   return (
     <>
       <Grid container sx={{ mt: 10 }}>
-        <Grid item md={2}></Grid>
-        <Grid item md={3}>
+        <Stack
+          sx={{ width: "200vh" }}
+          direction={"row"}
+          justifyContent={"space-around"}
+        >
           <Stack direction={"column"} spacing={2}>
-            <Typography>Choose chain:</Typography>
+            <Typography variant="h6">Choose chain:</Typography>
             <FormControl fullWidth>
               <Select
                 labelId="chose-chain"
@@ -71,36 +79,44 @@ function App() {
                     {item.name}
                   </MenuItem>
                 ))}
-                {/* map through list of chains */}
-                {/* <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem> */}
               </Select>
             </FormControl>
           </Stack>
-        </Grid>
-        <Grid item md={3}></Grid>
-        <Grid item md={3}>
-          <Stack direction={"column"} spacing={2}>
-            <Typography>Paste address</Typography>
-            <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-              <Input id="standard-adornment-amount" onChange={handleAddress} />
+
+          <Stack direction={"column"} spacing={2} sx={{ width: "45vh" }}>
+            <Typography variant="h6">Paste address</Typography>
+            <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+              <Input
+                id="standard-adornment-amount"
+                fullWidth
+                onChange={handleAddress}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={sendTokenToApi}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
             </FormControl>
           </Stack>
-        </Grid>
-        <Grid item md={2}></Grid>
+        </Stack>
       </Grid>
-      <Box
-        sx={{
-          ml: 20,
-          mt: 10,
-          width: "1500px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <HoldersTable holders={tokenHolders} />
-      </Box>
+      <Grid container sx={{ justifyContent: "center", alignItems: "center" }}>
+        <Box
+          sx={{
+            mt: 10,
+            width: "1200px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <HoldersTable holders={tokenHolders} />
+        </Box>
+      </Grid>
     </>
   );
 }

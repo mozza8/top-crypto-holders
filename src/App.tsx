@@ -1,6 +1,7 @@
 import {
   Box,
   FormControl,
+  GlobalStyles,
   Grid,
   IconButton,
   Input,
@@ -12,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 // import components
@@ -23,6 +25,8 @@ import { apiKey } from "./constants/api";
 
 // import types
 import { HolderAddress, TokenData } from "./types/types";
+import { theme } from "./theme/theme";
+import { blue } from "@mui/material/colors";
 
 function App() {
   const [selectedChain, setSelectedChain] = useState("1");
@@ -50,9 +54,7 @@ function App() {
       }
     )
       .then((response) => response.json())
-
       .then((data) => setTokenHolders(data.data))
-
       .catch((error) => console.error(error));
 
     fetch(
@@ -69,8 +71,14 @@ function App() {
       .catch((error) => console.error(error));
   };
   return (
-    <>
-      <Grid container sx={{ mt: 10 }}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: "background.default" },
+        }}
+      />
+      <Grid container sx={{ mt: 10, bgcolor: "background.default" }}>
         <Stack
           sx={{ width: "200vh" }}
           direction={"row"}
@@ -83,7 +91,8 @@ function App() {
                 labelId="chose-chain"
                 value={selectedChain}
                 onChange={handleChainChange}
-                sx={{ width: "160px", borderRadius: "25px", pl: 2 }}
+                sx={{ width: "160px", height: 40, borderRadius: "25px", pl: 2 }}
+                color="primary"
               >
                 {chainsIds.map((item) => (
                   <MenuItem key={`chain-id-${item.id}`} value={item.id}>
@@ -106,6 +115,7 @@ function App() {
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={sendTokenToApi}
+                      color="secondary"
                     >
                       <SearchIcon />
                     </IconButton>
@@ -139,11 +149,11 @@ function App() {
               alignItems: "center",
             }}
           >
-            <HoldersTable holders={tokenHolders} />
+            <HoldersTable holders={tokenHolders} theme={theme} />
           </Box>
         </Stack>
       </Grid>
-    </>
+    </ThemeProvider>
   );
 }
 

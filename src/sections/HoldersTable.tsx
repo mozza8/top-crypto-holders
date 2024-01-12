@@ -21,6 +21,8 @@ interface HoldersTableProps {
 }
 
 const HoldersTable = ({ holders, theme }: HoldersTableProps) => {
+  console.log(holders);
+
   return (
     <TableContainer
       sx={{ minWidth: 650, borderRadius: "25px" }}
@@ -54,9 +56,11 @@ const HoldersTable = ({ holders, theme }: HoldersTableProps) => {
                 <TableCell component="th" scope="row">
                   {holder.wallet_address}
                 </TableCell>
-                <TableCell align="right">{Math.trunc(holder.amount)}</TableCell>
                 <TableCell align="right">
-                  ${Math.trunc(holder.usd_value)}
+                  {Math.trunc(holder.amount).toLocaleString("fi-FI")}
+                </TableCell>
+                <TableCell align="right">
+                  ${Math.trunc(holder.usd_value).toLocaleString("fi-FI")}
                 </TableCell>
               </TableRow>
             ))}

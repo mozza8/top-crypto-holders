@@ -126,7 +126,10 @@ function App() {
           </Stack>
         </Stack>
       </Grid>
-      <Grid container sx={{ justifyContent: "center", alignItems: "center" }}>
+      <Grid
+        container
+        sx={{ justifyContent: "center", alignItems: "center", mt: 3 }}
+      >
         <Stack
           direction={"column"}
           spacing={2}

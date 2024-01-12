@@ -22,7 +22,7 @@ export const theme = createTheme({
     MuiTableBody: {
       styleOverrides: {
         root: {
-          backgroundColor: "#00b4d8",
+          backgroundColor: "#90e0ef",
         },
       },
     },

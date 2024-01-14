@@ -6,6 +6,7 @@ import {
   IconButton,
   Input,
   InputAdornment,
+  ListItemIcon,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -78,7 +79,17 @@ function App() {
           body: { backgroundColor: "background.default" },
         }}
       />
-      <Grid container sx={{ mt: 10, bgcolor: "background.default" }}>
+      <Grid
+        container
+        justifyContent={"center"}
+        alignItems={"center"}
+        marginTop={2}
+      >
+        <Typography variant="h4" color="primary">
+          TOP TOKEN HOLDERS
+        </Typography>
+      </Grid>
+      <Grid container sx={{ mt: 5 }}>
         <Stack
           sx={{ width: "200vh" }}
           direction={"row"}
@@ -91,11 +102,18 @@ function App() {
                 labelId="chose-chain"
                 value={selectedChain}
                 onChange={handleChainChange}
-                sx={{ width: "160px", height: 40, borderRadius: "25px", pl: 2 }}
+                sx={{ width: "190px", height: 40, borderRadius: "25px", pl: 2 }}
                 color="primary"
               >
                 {chainsIds.map((item) => (
                   <MenuItem key={`chain-id-${item.id}`} value={item.id}>
+                    {/* <img
+                      height={10}
+                      width={10}
+                      src={item.logo}
+                      alt={item.name}
+                    /> */}
+
                     {item.name}
                   </MenuItem>
                 ))}

@@ -21,8 +21,6 @@ interface HoldersTableProps {
 }
 
 const HoldersTable = ({ holders, theme }: HoldersTableProps) => {
-  console.log(holders);
-
   return (
     <TableContainer
       sx={{ minWidth: 650, borderRadius: "25px" }}
@@ -49,8 +47,8 @@ const HoldersTable = ({ holders, theme }: HoldersTableProps) => {
               <TableRow
                 key={holder.wallet_address}
                 sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
                   backgroundColor: "secondary",
+                  borderRadius: "10px",
                 }}
               >
                 <TableCell component="th" scope="row">

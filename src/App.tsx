@@ -11,6 +11,7 @@ import HoldersTable from "./sections/HoldersTable";
 import { HolderAddress, TokenData } from "./types/types";
 import { theme } from "./theme/theme";
 import Inputs from "./sections/Inputs";
+import DisplaySection from "./sections/DisplaySection";
 
 function App() {
   const [tokenHolders, setTokenHolders] = useState<HolderAddress[]>([]);
@@ -56,9 +57,7 @@ function App() {
               alignItems: "center",
             }}
           >
-            {tokenHolders.length ? (
-              <HoldersTable holders={tokenHolders} theme={theme} />
-            ) : null}
+            <DisplaySection holders={tokenHolders} />
           </Box>
         </Stack>
       </Grid>

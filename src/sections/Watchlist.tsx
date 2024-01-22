@@ -7,18 +7,15 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Theme,
   Checkbox,
 } from "@mui/material";
 import { HolderAddress } from "../types/types";
-import { useState } from "react";
-import TableRowCheckbox from "./TableRowCheckbox";
 
-interface HoldersTableProps {
+interface WatchlistProps {
   holders: HolderAddress[];
 }
 
-const HoldersTable = ({ holders }: HoldersTableProps) => {
+const Watchlist = ({ holders }: WatchlistProps) => {
   return (
     <TableContainer
       sx={{ minWidth: 650, borderRadius: "25px" }}
@@ -44,8 +41,31 @@ const HoldersTable = ({ holders }: HoldersTableProps) => {
         </TableHead>
         <TableBody>
           {holders &&
-            holders.map((holder: HolderAddress) => (
-              <TableRowCheckbox key={holder.wallet_address} holder={holder} />
+            holders.map((holder) => (
+              <TableRow
+                key={holder.wallet_address}
+                sx={{
+                  backgroundColor: "secondary",
+                  borderRadius: "10px",
+                }}
+              >
+                <TableCell component="th" scope="row">
+                  {holder.wallet_address}
+                </TableCell>
+                <TableCell align="right">
+                  {Math.trunc(holder.amount).toLocaleString("fi-FI")}
+                </TableCell>
+                <TableCell align="right">
+                  ${Math.trunc(holder.usd_value).toLocaleString("fi-FI")}
+                </TableCell>
+                <TableCell align="right">
+                  <Checkbox
+                  // checked={checked}
+                  // onChange={handleWatchlistClick}
+                  // inputProps={{ "aria-label": "controlled" }}
+                  />
+                </TableCell>
+              </TableRow>
             ))}
         </TableBody>
       </Table>
@@ -53,4 +73,4 @@ const HoldersTable = ({ holders }: HoldersTableProps) => {
   );
 };
 
-export default HoldersTable;
+export default Watchlist;

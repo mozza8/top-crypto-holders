@@ -10,9 +10,15 @@ import { HolderAddress } from "../types/types";
 
 interface DisplaySectionProps {
   holders: HolderAddress[];
+  selectedChain: string;
+  inputValue: string;
 }
 
-const DisplaySection = ({ holders }: DisplaySectionProps) => {
+const DisplaySection = ({
+  holders,
+  selectedChain,
+  inputValue,
+}: DisplaySectionProps) => {
   const [value, setValue] = useState("1");
   const [watchlistAddresses, setWatchlistAddresses] = useState([]);
 
@@ -47,7 +53,13 @@ const DisplaySection = ({ holders }: DisplaySectionProps) => {
           <Tab key="Tab two" onClick={getWallets} label="Watchlist" value="2" />
         </TabList>
         <TabPanel value="1">
-          {holders.length ? <HoldersTable holders={holders} /> : null}
+          {holders.length ? (
+            <HoldersTable
+              holders={holders}
+              selectedChain={selectedChain}
+              inputValue={inputValue}
+            />
+          ) : null}
         </TabPanel>
         <TabPanel value="2">
           <Watchlist holders={watchlistAddresses} />

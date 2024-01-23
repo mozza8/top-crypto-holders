@@ -16,7 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // import constants
 import { chainsIds } from "../constants/chains";
-import { apiKey } from "../constants/api";
+import { apiKeyChainbase } from "../constants/api";
 
 // import types
 import { HolderAddress, TokenData } from "../types/types";
@@ -26,12 +26,20 @@ interface InputProps {
   setTokenData: React.Dispatch<
     React.SetStateAction<TokenData | null | undefined>
   >;
+  setSelectedChain: React.Dispatch<React.SetStateAction<string>>;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  selectedChain: string;
+  inputValue: string;
 }
 
-const Inputs = ({ setTokenHolders, setTokenData }: InputProps) => {
-  const [selectedChain, setSelectedChain] = useState("1");
-  const [inputValue, setInputValue] = useState("");
-
+const Inputs = ({
+  setTokenHolders,
+  setTokenData,
+  setSelectedChain,
+  setInputValue,
+  selectedChain,
+  inputValue,
+}: InputProps) => {
   const handleChainChange = (event: SelectChangeEvent) => {
     setSelectedChain(event.target.value);
   };
@@ -46,7 +54,7 @@ const Inputs = ({ setTokenHolders, setTokenData }: InputProps) => {
       {
         method: "GET",
         headers: {
-          "x-api-key": apiKey,
+          "x-api-key": apiKeyChainbase,
           accept: "application/json",
         },
       }
@@ -60,7 +68,7 @@ const Inputs = ({ setTokenHolders, setTokenData }: InputProps) => {
       {
         method: "GET",
         headers: {
-          "x-api-key": apiKey,
+          "x-api-key": apiKeyChainbase,
         },
       }
     )

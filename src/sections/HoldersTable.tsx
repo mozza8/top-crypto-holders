@@ -16,9 +16,15 @@ import TableRowCheckbox from "./TableRowCheckbox";
 
 interface HoldersTableProps {
   holders: HolderAddress[];
+  selectedChain: string;
+  inputValue: string;
 }
 
-const HoldersTable = ({ holders }: HoldersTableProps) => {
+const HoldersTable = ({
+  holders,
+  selectedChain,
+  inputValue,
+}: HoldersTableProps) => {
   return (
     <TableContainer
       sx={{ minWidth: 650, borderRadius: "25px" }}
@@ -45,7 +51,12 @@ const HoldersTable = ({ holders }: HoldersTableProps) => {
         <TableBody>
           {holders &&
             holders.map((holder: HolderAddress) => (
-              <TableRowCheckbox key={holder.wallet_address} holder={holder} />
+              <TableRowCheckbox
+                key={holder.wallet_address}
+                holder={holder}
+                selectedChain={selectedChain}
+                inputValue={inputValue}
+              />
             ))}
         </TableBody>
       </Table>

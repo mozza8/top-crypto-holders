@@ -10,6 +10,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { HolderAddress } from "../types/types";
+import TableRowWatchlist from "./TableRowWatchlist";
 
 interface WatchlistProps {
   holders: HolderAddress[];
@@ -29,43 +30,26 @@ const Watchlist = ({ holders }: WatchlistProps) => {
               Address
             </TableCell>
             <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
-              Token Amount
+              Token
             </TableCell>
             <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
-              Usd value
+              Amount transacted
             </TableCell>
             <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
-              Add to watchlist
+              Time
+            </TableCell>
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+              Remove from watchlist
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {holders &&
             holders.map((holder) => (
-              <TableRow
+              <TableRowWatchlist
                 key={holder.wallet_address}
-                sx={{
-                  backgroundColor: "secondary",
-                  borderRadius: "10px",
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  {holder.wallet_address}
-                </TableCell>
-                <TableCell align="right">
-                  {Math.trunc(holder.amount).toLocaleString("fi-FI")}
-                </TableCell>
-                <TableCell align="right">
-                  ${Math.trunc(holder.usd_value).toLocaleString("fi-FI")}
-                </TableCell>
-                <TableCell align="right">
-                  <Checkbox
-                  // checked={checked}
-                  // onChange={handleWatchlistClick}
-                  // inputProps={{ "aria-label": "controlled" }}
-                  />
-                </TableCell>
-              </TableRow>
+                holder={holder}
+              ></TableRowWatchlist>
             ))}
         </TableBody>
       </Table>

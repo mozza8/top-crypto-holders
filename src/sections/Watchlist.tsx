@@ -9,14 +9,15 @@ import {
   TableBody,
   Checkbox,
 } from "@mui/material";
-import { HolderAddress } from "../types/types";
+import { WatchlistAddress } from "../types/types";
 import TableRowWatchlist from "./TableRowWatchlist";
 
 interface WatchlistProps {
-  holders: HolderAddress[];
+  holders: WatchlistAddress[];
+  getWallets: () => void;
 }
 
-const Watchlist = ({ holders }: WatchlistProps) => {
+const Watchlist = ({ holders, getWallets }: WatchlistProps) => {
   return (
     <TableContainer
       sx={{ minWidth: 650, borderRadius: "25px" }}
@@ -47,8 +48,9 @@ const Watchlist = ({ holders }: WatchlistProps) => {
           {holders &&
             holders.map((holder) => (
               <TableRowWatchlist
-                key={holder.wallet_address}
+                key={holder.address}
                 holder={holder}
+                getWallets={getWallets}
               ></TableRowWatchlist>
             ))}
         </TableBody>

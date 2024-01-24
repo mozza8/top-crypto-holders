@@ -17,3 +17,10 @@ export type Logo = {
   uri: string;
   width: number;
 };
+
+export type WatchlistAddress = {
+  address: string;
+  time: number;
+  token: string;
+  value: number;
+};

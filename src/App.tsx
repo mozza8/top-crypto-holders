@@ -19,8 +19,6 @@ function App() {
   const [selectedChain, setSelectedChain] = useState("1");
   const [inputValue, setInputValue] = useState("");
 
-  console.log("tokenData", tokenData);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
@@ -34,6 +32,7 @@ function App() {
           TOP TOKEN HOLDERS
         </Typography>
       </Grid>
+
       <Inputs
         setTokenHolders={setTokenHolders}
         setTokenData={setTokenData}
@@ -42,6 +41,7 @@ function App() {
         selectedChain={selectedChain}
         inputValue={inputValue}
       />
+
       <Grid
         container
         sx={{ justifyContent: "center", alignItems: "center", mt: 3 }}

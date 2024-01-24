@@ -53,16 +53,14 @@ const DisplaySection = ({
           <Tab key="Tab two" onClick={getWallets} label="Watchlist" value="2" />
         </TabList>
         <TabPanel value="1">
-          {holders.length ? (
-            <HoldersTable
-              holders={holders}
-              selectedChain={selectedChain}
-              inputValue={inputValue}
-            />
-          ) : null}
+          <HoldersTable
+            holders={holders}
+            selectedChain={selectedChain}
+            inputValue={inputValue}
+          />
         </TabPanel>
         <TabPanel value="2">
-          <Watchlist holders={watchlistAddresses} />
+          <Watchlist holders={watchlistAddresses} getWallets={getWallets} />
         </TabPanel>
       </TabContext>
     </Box>

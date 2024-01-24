@@ -60,9 +60,12 @@ const Inputs = ({
       }
     )
       .then((response) => response.json())
-      .then((data) => setTokenHolders(data.data))
+      .then((data) => {
+        setTokenHolders(data.data);
+      })
       .catch((error) => console.error(error));
 
+    // get token data
     fetch(
       `https://api.chainbase.online/v1/token/metadata?chain_id=${selectedChain}&contract_address=${inputValue}`,
       {
@@ -78,60 +81,68 @@ const Inputs = ({
   };
 
   return (
-    <Grid container sx={{ mt: 5 }}>
-      <Stack
-        sx={{ width: "200vh" }}
-        direction={"row"}
-        justifyContent={"space-around"}
-      >
-        <Stack direction={"column"} spacing={2}>
-          <Typography variant="h6">Choose chain:</Typography>
-          <FormControl fullWidth>
-            <Select
-              labelId="chose-chain"
-              value={selectedChain}
-              onChange={handleChainChange}
-              sx={{ width: "190px", height: 40, borderRadius: "25px", pl: 2 }}
-              color="primary"
-            >
-              {chainsIds.map((item) => (
-                <MenuItem key={`chain-id-${item.id}`} value={item.id}>
-                  {/* <img
+    <Grid
+      container
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      sx={{ mt: 5 }}
+    >
+      <Grid item>
+        <Stack
+          sx={{ width: "200vh" }}
+          direction={"row"}
+          justifyContent={"space-around"}
+        >
+          <Stack direction={"column"} spacing={2}>
+            <Typography variant="h6">Choose chain:</Typography>
+            <FormControl fullWidth>
+              <Select
+                labelId="chose-chain"
+                value={selectedChain}
+                onChange={handleChainChange}
+                sx={{ width: "190px", height: 40, borderRadius: "25px", pl: 2 }}
+                color="primary"
+              >
+                {chainsIds.map((item) => (
+                  <MenuItem key={`chain-id-${item.id}`} value={item.id}>
+                    {/* <img
                       height={10}
                       width={10}
                       src={item.logo}
                       alt={item.name}
                     /> */}
 
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Stack>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Stack>
 
-        <Stack direction={"column"} spacing={2} sx={{ width: "45vh" }}>
-          <Typography variant="h6">Paste address</Typography>
-          <FormControl fullWidth sx={{ m: 1 }} variant="filled">
-            <Input
-              id="standard-adornment-amount"
-              fullWidth
-              onChange={handleAddress}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={sendTokenToApi}
-                    color="secondary"
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+          <Stack direction={"column"} spacing={2} sx={{ width: "45vh" }}>
+            <Typography variant="h6">Paste address</Typography>
+            <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+              <Input
+                id="standard-adornment-amount"
+                fullWidth
+                onChange={handleAddress}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={sendTokenToApi}
+                      color="secondary"
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </Stack>
         </Stack>
-      </Stack>
+      </Grid>
     </Grid>
   );
 };

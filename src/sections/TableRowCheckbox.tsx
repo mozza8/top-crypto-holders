@@ -3,6 +3,12 @@ import { useState } from "react";
 import { HolderAddress } from "../types/types";
 import { apiKeyEtherscan } from "../constants/api";
 
+type ScanResponse = {
+  tokenSymbol: string;
+  value: number;
+  timeStamp: number;
+};
+
 interface TableRowCheckboxProps {
   holder: HolderAddress;
   selectedChain: string;
@@ -13,8 +19,8 @@ const TableRowCheckbox = ({
   selectedChain,
   inputValue,
 }: TableRowCheckboxProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [addressChainResult, setAddressChainResult] = useState("");
+  const [addressChainResult, setAddressChainResult] =
+    useState<ScanResponse | null>(null);
 
   const addToWatchlist = () => {
     fetch(
@@ -28,23 +34,27 @@ const TableRowCheckbox = ({
       }
     )
       .then((response) => response.json())
-      .then((data) => setAddressChainResult(data.result[0]))
+      .then((data) => {
+        setAddressChainResult(data.result[0]);
+        console.log("data", data);
+        fetch(
+          `http://localhost:5000/add-wallet-address?address=${holder.wallet_address}&token=${data.result[0].tokenSymbol}&value=${data.result[0].value}&time=${data.result[0].timeStamp}`,
+
+          {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+            },
+          }
+        )
+          .then((response) => {
+            console.log("Raw response", response);
+            response.json();
+          })
+          .then((data) => console.log(data))
+          .catch((error) => console.error(error));
+      })
       .catch((error) => console.error(error));
-
-    // SENDING: tokenSymbol, value, timeStamp
-
-    // fetch(
-    //   `http://localhost:5000/add-wallet-address?address=${holder.wallet_address}`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       accept: "application/json",
-    //     },
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.error(error));
   };
 
   return (

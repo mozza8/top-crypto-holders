@@ -7,6 +7,7 @@ export type HolderAddress = {
 export type TokenData = {
   current_usd_price: number;
   name: string;
+  decimals: number;
   symbol: string;
   total_supply: string;
   logos: Logo[];
@@ -23,4 +24,5 @@ export type WatchlistAddress = {
   time: number;
   token: string;
   value: number;
+  decimals: number;
 };

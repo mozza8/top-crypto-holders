@@ -6,11 +6,13 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { theme } from "../theme/theme";
 import HoldersTable from "./HoldersTable";
-import { HolderAddress } from "../types/types";
+import { HolderAddress, TokenData } from "../types/types";
+import { getWatchlist } from "../api/services/backend";
 
 interface DisplaySectionProps {
   holders: HolderAddress[];
   selectedChain: string;
+  tokenData: TokenData | null | undefined;
   inputValue: string;
 }
 
@@ -18,6 +20,7 @@ const DisplaySection = ({
   holders,
   selectedChain,
   inputValue,
+  tokenData,
 }: DisplaySectionProps) => {
   const [value, setValue] = useState("1");
   const [watchlistAddresses, setWatchlistAddresses] = useState([]);
@@ -26,16 +29,13 @@ const DisplaySection = ({
     setValue(newValue);
   };
 
-  const getWallets = () => {
-    fetch(`http://localhost:5000/get-wallets`, {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setWatchlistAddresses(data))
-      .catch((error) => console.error(error));
+  const handleWatchlist = async () => {
+    try {
+      const watchlistData = await getWatchlist();
+      setWatchlistAddresses(watchlistData);
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   return (
@@ -50,17 +50,26 @@ const DisplaySection = ({
       <TabContext value={value}>
         <TabList onChange={changeTable} aria-label="basic tabs example">
           <Tab key="Tab one" label="Holders" value="1" />
-          <Tab key="Tab two" onClick={getWallets} label="Watchlist" value="2" />
+          <Tab
+            key="Tab two"
+            onClick={handleWatchlist}
+            label="Watchlist"
+            value="2"
+          />
         </TabList>
         <TabPanel value="1">
           <HoldersTable
             holders={holders}
             selectedChain={selectedChain}
             inputValue={inputValue}
+            tokenData={tokenData}
           />
         </TabPanel>
         <TabPanel value="2">
-          <Watchlist holders={watchlistAddresses} getWallets={getWallets} />
+          <Watchlist
+            holders={watchlistAddresses}
+            handleWatchlist={handleWatchlist}
+          />
         </TabPanel>
       </TabContext>
     </Box>

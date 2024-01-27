@@ -20,6 +20,8 @@ import { apiKeyChainbase } from "../constants/api";
 
 // import types
 import { HolderAddress, TokenData } from "../types/types";
+import { getTopHolders } from "../api/services/backend";
+import { getTokenData } from "../api/services/thirdParty";
 
 interface InputProps {
   setTokenHolders: React.Dispatch<React.SetStateAction<HolderAddress[]>>;
@@ -48,36 +50,16 @@ const Inputs = ({
     setInputValue(event.target.value);
   };
 
-  const sendTokenToApi = () => {
-    fetch(
-      `https://api.chainbase.online/v1/token/top-holders?chain_id=${selectedChain}&contract_address=${inputValue}&page=1&limit=100`,
-      {
-        method: "GET",
-        headers: {
-          "x-api-key": apiKeyChainbase,
-          accept: "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setTokenHolders(data.data);
-      })
-      .catch((error) => console.error(error));
+  const getTopHoldersAndTokenData = async () => {
+    try {
+      const topHolders = await getTopHolders(selectedChain, inputValue);
+      setTokenHolders(topHolders);
 
-    // get token data
-    fetch(
-      `https://api.chainbase.online/v1/token/metadata?chain_id=${selectedChain}&contract_address=${inputValue}`,
-      {
-        method: "GET",
-        headers: {
-          "x-api-key": apiKeyChainbase,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => setTokenData(data.data))
-      .catch((error) => console.error(error));
+      const dataToken = await getTokenData(selectedChain, inputValue);
+      setTokenData(dataToken);
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
 
   return (
@@ -106,13 +88,6 @@ const Inputs = ({
               >
                 {chainsIds.map((item) => (
                   <MenuItem key={`chain-id-${item.id}`} value={item.id}>
-                    {/* <img
-                      height={10}
-                      width={10}
-                      src={item.logo}
-                      alt={item.name}
-                    /> */}
-
                     {item.name}
                   </MenuItem>
                 ))}
@@ -130,8 +105,7 @@ const Inputs = ({
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={sendTokenToApi}
+                      onClick={getTopHoldersAndTokenData}
                       color="secondary"
                     >
                       <SearchIcon />

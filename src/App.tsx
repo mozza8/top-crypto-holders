@@ -19,7 +19,6 @@ function App() {
   const [selectedChain, setSelectedChain] = useState("1");
   const [inputValue, setInputValue] = useState("");
 
-  console.log("tokenData", tokenData);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
@@ -71,6 +70,7 @@ function App() {
           >
             <DisplaySection
               holders={tokenHolders}
+              setTokenHolders={setTokenHolders}
               selectedChain={selectedChain}
               inputValue={inputValue}
               tokenData={tokenData}

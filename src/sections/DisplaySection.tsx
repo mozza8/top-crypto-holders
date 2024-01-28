@@ -7,10 +7,11 @@ import TabPanel from "@mui/lab/TabPanel";
 import { theme } from "../theme/theme";
 import HoldersTable from "./HoldersTable";
 import { HolderAddress, TokenData } from "../types/types";
-import { getWatchlist } from "../api/services/backend";
+import { getTopHolders, getWatchlist } from "../api/services/backend";
 
 interface DisplaySectionProps {
   holders: HolderAddress[];
+  setTokenHolders: React.Dispatch<React.SetStateAction<HolderAddress[]>>;
   selectedChain: string;
   tokenData: TokenData | null | undefined;
   inputValue: string;
@@ -18,6 +19,7 @@ interface DisplaySectionProps {
 
 const DisplaySection = ({
   holders,
+  setTokenHolders,
   selectedChain,
   inputValue,
   tokenData,
@@ -38,10 +40,19 @@ const DisplaySection = ({
     }
   };
 
+  const handleTopHolders = async () => {
+    try {
+      const topHolders = await getTopHolders(selectedChain, inputValue);
+      setTokenHolders(topHolders);
+    } catch (error) {
+      console.log("Error getting holders");
+    }
+  };
+
   return (
     <Box
       sx={{
-        mt: 10,
+        mt: 4,
         width: "1200px",
         justifyContent: "center",
         alignItems: "center",
@@ -49,7 +60,12 @@ const DisplaySection = ({
     >
       <TabContext value={value}>
         <TabList onChange={changeTable} aria-label="basic tabs example">
-          <Tab key="Tab one" label="Holders" value="1" />
+          <Tab
+            key="Tab one"
+            label="Holders"
+            onClick={handleTopHolders}
+            value="1"
+          />
           <Tab
             key="Tab two"
             onClick={handleWatchlist}

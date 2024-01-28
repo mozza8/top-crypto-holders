@@ -3,8 +3,8 @@ import { useState } from "react";
 import { HolderAddress, TokenData } from "../types/types";
 import { apiKeyEtherscan } from "../constants/api";
 import {
+  getLastTransactionBscScan,
   getLastTransactionEtherscan,
-  getTokenData,
 } from "../api/services/thirdParty";
 import { addToWatchlist } from "../api/services/backend";
 
@@ -29,23 +29,52 @@ const TableRowCheckbox = ({
   tokenData,
 }: TableRowCheckboxProps) => {
   const handleAddToWatchlist = async () => {
-    try {
-      const lastTransaction = await getLastTransactionEtherscan(
-        inputValue,
-        holder.wallet_address
-      );
-      console.log("lastTransaction.value", lastTransaction.value);
-      if (tokenData) {
-        await addToWatchlist(
-          holder.wallet_address,
-          lastTransaction.tokenSymbol,
-          lastTransaction.value,
-          lastTransaction.timeStamp,
-          tokenData?.decimals
-        );
-      }
-    } catch (error) {
-      console.log("Some error", error);
+    console.log("selectedChain", selectedChain);
+    console.log("selectedChain", typeof selectedChain);
+
+    switch (selectedChain) {
+      case "1":
+        console.log("get Ether tx");
+        try {
+          const lastTransaction = await getLastTransactionEtherscan(
+            inputValue,
+            holder.wallet_address
+          );
+          if (tokenData) {
+            await addToWatchlist(
+              holder.wallet_address,
+              lastTransaction.tokenSymbol,
+              lastTransaction.value,
+              lastTransaction.timeStamp,
+              tokenData?.decimals
+            );
+          }
+        } catch (error) {
+          console.log("Some error", error);
+        }
+        break;
+
+      case "56":
+        console.log("get Bsc tx");
+        try {
+          const lastTransaction = await getLastTransactionBscScan(
+            inputValue,
+            holder.wallet_address
+          );
+          if (tokenData) {
+            console.log("lastTransaction", lastTransaction);
+            await addToWatchlist(
+              holder.wallet_address,
+              lastTransaction.tokenSymbol,
+              lastTransaction.value,
+              lastTransaction.timeStamp,
+              tokenData?.decimals
+            );
+          }
+        } catch (error) {
+          console.log("Some error", error);
+        }
+        break;
     }
   };
 

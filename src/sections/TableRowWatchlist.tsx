@@ -26,7 +26,6 @@ const TableRowWatchlist = ({
     return stringDate.slice(4);
   };
 
-  console.log("holder value", holder.value);
   return (
     <TableRow
       key={holder.address}

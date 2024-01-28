@@ -44,6 +44,8 @@ const Inputs = ({
 }: InputProps) => {
   const handleChainChange = (event: SelectChangeEvent) => {
     setSelectedChain(event.target.value);
+    setInputValue("");
+    console.log("selected chain", event.target.value);
   };
 
   const handleAddress = (event: any) => {
@@ -101,6 +103,7 @@ const Inputs = ({
               <Input
                 id="standard-adornment-amount"
                 fullWidth
+                value={inputValue}
                 onChange={handleAddress}
                 endAdornment={
                   <InputAdornment position="end">

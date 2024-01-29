@@ -27,16 +27,16 @@ const Watchlist = ({ holders, handleWatchlist }: WatchlistProps) => {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }}>
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Address
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Token
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Amount transacted
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Time
             </TableCell>
             <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">

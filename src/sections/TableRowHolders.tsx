@@ -86,12 +86,12 @@ const TableRowCheckbox = ({
         borderRadius: "10px",
       }}
     >
-      <TableCell scope="row">{index + 1}</TableCell>
-      <TableCell scope="row">{holder.wallet_address}</TableCell>
-      <TableCell align="right">
+      <TableCell align="left">{index + 1}</TableCell>
+      <TableCell align="left">{holder.wallet_address}</TableCell>
+      <TableCell align="left">
         {Math.trunc(holder.amount).toLocaleString("fi-FI")}
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="left">
         ${Math.trunc(holder.usd_value).toLocaleString("fi-FI")}
       </TableCell>
       <TableCell align="right">

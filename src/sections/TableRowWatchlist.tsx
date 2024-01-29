@@ -34,12 +34,12 @@ const TableRowWatchlist = ({
         borderRadius: "10px",
       }}
     >
-      <TableCell scope="row">{holder.address}</TableCell>
-      <TableCell scope="row">{holder.token}</TableCell>
-      <TableCell align="right">
+      <TableCell align="left">{holder.address}</TableCell>
+      <TableCell align="left">{holder.token}</TableCell>
+      <TableCell align="left">
         {holder.value.toString().slice(0, -holder.decimals)}
       </TableCell>
-      <TableCell align="right">{toDate(holder.time)}</TableCell>
+      <TableCell align="left">{toDate(holder.time)}</TableCell>
       <TableCell align="right">
         <Button onClick={handleRemoveFromWatchlist}>Remove</Button>
       </TableCell>

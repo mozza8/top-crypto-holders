@@ -11,8 +11,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { HolderAddress, TokenData } from "../types/types";
-import { useState } from "react";
-import TableRowCheckbox from "./TableRowCheckbox";
+import TableRowCheckbox from "./TableRowHolders";
 
 interface HoldersTableProps {
   holders: HolderAddress[];
@@ -36,16 +35,19 @@ const HoldersTable = ({
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18, width: 20 }}>
+            <TableCell
+              sx={{ color: "whitesmoke", fontSize: 18, width: 20 }}
+              align="left"
+            >
               Number
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }}>
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Address
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Token Amount
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
               Usd value
             </TableCell>
             <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">

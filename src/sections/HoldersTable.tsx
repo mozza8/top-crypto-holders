@@ -7,11 +7,13 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Theme,
-  Checkbox,
 } from "@mui/material";
+
+// import components
+import TableRowHolders from "./TableRowHolders";
+
+// import types
 import { HolderAddress, TokenData } from "../types/types";
-import TableRowCheckbox from "./TableRowHolders";
 
 interface HoldersTableProps {
   holders: HolderAddress[];
@@ -70,7 +72,7 @@ const HoldersTable = ({
         <TableBody>
           {holders &&
             holders.map((holder: HolderAddress, index) => (
-              <TableRowCheckbox
+              <TableRowHolders
                 key={holder.wallet_address}
                 index={index}
                 holder={holder}

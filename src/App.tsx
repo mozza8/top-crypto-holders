@@ -1,17 +1,19 @@
+// import dependencies
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 // import components
-import HoldersTable from "./sections/HoldersTable";
+import Inputs from "./sections/Inputs";
+import DisplaySection from "./sections/DisplaySection";
 
 // import constants
 
 // import types
 import { HolderAddress, TokenData } from "./types/types";
+
+// import styles
 import { theme } from "./theme/theme";
-import Inputs from "./sections/Inputs";
-import DisplaySection from "./sections/DisplaySection";
 
 function App() {
   const [tokenHolders, setTokenHolders] = useState<HolderAddress[]>([]);

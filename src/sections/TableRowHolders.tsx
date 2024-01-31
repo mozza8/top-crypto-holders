@@ -1,40 +1,30 @@
-import {
-  Button,
-  Checkbox,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
-import { HolderAddress, TokenData } from "../types/types";
-import { apiKeyEtherscan } from "../constants/api";
+// import dependecies
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
+
+// import services
 import {
   getLastTransactionBscScan,
   getLastTransactionEtherscan,
 } from "../api/services/thirdParty";
 import { addToWatchlist } from "../api/services/backend";
-import { chainsIds } from "../constants/chains";
 
-type ScanResponse = {
-  tokenSymbol: string;
-  value: number;
-  timeStamp: number;
-};
+// import types
+import { HolderAddress, TokenData } from "../types/types";
 
-interface TableRowCheckboxProps {
+interface TableRowHoldersProps {
   holder: HolderAddress;
   index: number;
   selectedChain: string;
   inputValue: string;
   tokenData: TokenData | null | undefined;
 }
-const TableRowCheckbox = ({
+const TableRowHolders = ({
   holder,
   index,
   selectedChain,
   inputValue,
   tokenData,
-}: TableRowCheckboxProps) => {
+}: TableRowHoldersProps) => {
   const handleAddToWatchlist = async () => {
     console.log("selectedChain", selectedChain);
     console.log("selectedChain", typeof selectedChain);
@@ -123,4 +113,4 @@ const TableRowCheckbox = ({
   );
 };
 
-export default TableRowCheckbox;
+export default TableRowHolders;

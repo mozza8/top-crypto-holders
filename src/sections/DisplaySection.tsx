@@ -1,13 +1,19 @@
-import { Box, Tab, Tabs } from "@mui/material";
+// import dependecies
+import { Box, Tab } from "@mui/material";
 import { useState } from "react";
-import Watchlist from "./Watchlist";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { theme } from "../theme/theme";
+
+// import components
+import Watchlist from "./Watchlist";
 import HoldersTable from "./HoldersTable";
-import { HolderAddress, TokenData } from "../types/types";
+
+// import services
 import { getTopHolders, getWatchlist } from "../api/services/backend";
+
+// import types
+import { HolderAddress, TokenData } from "../types/types";
 
 interface DisplaySectionProps {
   holders: HolderAddress[];

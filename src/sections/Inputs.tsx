@@ -1,5 +1,4 @@
 // import dependencies
-import { useState } from "react";
 import {
   Grid,
   Stack,
@@ -16,12 +15,13 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // import constants
 import { chainsIds } from "../constants/chains";
-import { apiKeyChainbase } from "../constants/api";
+
+// import services
+import { getTopHolders } from "../api/services/backend";
+import { getTokenData } from "../api/services/thirdParty";
 
 // import types
 import { HolderAddress, TokenData } from "../types/types";
-import { getTopHolders } from "../api/services/backend";
-import { getTokenData } from "../api/services/thirdParty";
 
 interface InputProps {
   setTokenHolders: React.Dispatch<React.SetStateAction<HolderAddress[]>>;

@@ -7,10 +7,13 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Checkbox,
 } from "@mui/material";
-import { TokenData, WatchlistAddress } from "../types/types";
+
+// import components
 import TableRowWatchlist from "./TableRowWatchlist";
+
+// import types
+import { WatchlistAddress } from "../types/types";
 
 interface WatchlistProps {
   holders: WatchlistAddress[];

@@ -1,6 +1,11 @@
+// import dependencies
 import { Button, TableCell, TableRow, Typography } from "@mui/material";
-import { WatchlistAddress } from "../types/types";
+
+// import services
 import { removeFromWatchlist } from "../api/services/backend";
+
+// import types
+import { WatchlistAddress } from "../types/types";
 
 interface TableRowWatchlistProps {
   holder: WatchlistAddress;
@@ -24,8 +29,6 @@ const TableRowWatchlist = ({
     const stringDate = date.toDateString();
     return stringDate.slice(4);
   };
-
-  console.log("holder.amount_transacted", holder.amount_transacted);
 
   return (
     <TableRow

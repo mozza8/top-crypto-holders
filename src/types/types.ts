@@ -23,6 +23,7 @@ export type WatchlistAddress = {
   address: string;
   time: number;
   token: string;
-  value: number;
+  amount_transacted: number;
   decimals: number;
+  blockchain: string;
 };

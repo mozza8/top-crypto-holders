@@ -52,18 +52,28 @@ function App() {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant="h6">
-            Token:{" "}
-            {tokenData && (
-              <img height={16} width={16} src={tokenData?.logos[0].uri} />
-            )}{" "}
-            {tokenData?.symbol}
-          </Typography>
+          <Stack
+            direction={"row"}
+            sx={{ width: "130vh" }}
+            justifyContent={"center"}
+            spacing={10}
+          >
+            <Typography variant="h6">
+              Token:{" "}
+              {tokenData && (
+                <img height={16} width={16} src={tokenData?.logos[0].uri} />
+              )}{" "}
+              {tokenData?.symbol}
+            </Typography>
+            <Typography variant="h6">
+              Current price: {tokenData && `${tokenData.current_usd_price} $`}
+            </Typography>
+          </Stack>
 
           <Box
             sx={{
               mt: 10,
-              width: "1200px",
+              width: "1300px",
               justifyContent: "center",
               alignItems: "center",
             }}

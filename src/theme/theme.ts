@@ -4,29 +4,34 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   palette: {
     background: {
-      default: "#ffffff",
+      default: "#ebd3c7",
     },
     primary: {
-      main: "#023e8a",
+      main: "#61988e",
     },
     secondary: {
-      main: "#0096c7",
+      main: "#493843",
     },
   },
   components: {
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: "#023e8a",
+          backgroundColor: "#61988e",
         },
       },
     },
     MuiTableBody: {
       styleOverrides: {
         root: {
-          backgroundColor: "#90e0ef",
+          backgroundColor: "#cbbfbb",
         },
       },
+    },
+  },
+  typography: {
+    body1: {
+      fontSize: "16px",
     },
   },
 });

@@ -1,7 +1,6 @@
-import { Button, Checkbox, TableCell, TableRow } from "@mui/material";
-import { useState } from "react";
-import { HolderAddress, TokenData, WatchlistAddress } from "../types/types";
-import { getWatchlist, removeFromWatchlist } from "../api/services/backend";
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
+import { WatchlistAddress } from "../types/types";
+import { removeFromWatchlist } from "../api/services/backend";
 
 interface TableRowWatchlistProps {
   holder: WatchlistAddress;
@@ -26,6 +25,8 @@ const TableRowWatchlist = ({
     return stringDate.slice(4);
   };
 
+  console.log("holder.amount_transacted", holder.amount_transacted);
+
   return (
     <TableRow
       key={holder.address}
@@ -34,14 +35,27 @@ const TableRowWatchlist = ({
         borderRadius: "10px",
       }}
     >
-      <TableCell align="left">{holder.address}</TableCell>
-      <TableCell align="left">{holder.token}</TableCell>
       <TableCell align="left">
-        {holder.value.toString().slice(0, -holder.decimals)}
+        <Typography variant="body1">{holder.address}</Typography>
       </TableCell>
-      <TableCell align="left">{toDate(holder.time)}</TableCell>
+      <TableCell align="left">
+        <Typography variant="body1">{holder.token}</Typography>
+      </TableCell>
+      <TableCell align="left">
+        <Typography variant="body1">{holder.blockchain}</Typography>
+      </TableCell>
+      <TableCell align="left">
+        <Typography variant="body1">
+          {holder.amount_transacted.toString().slice(0, -holder.decimals)}
+        </Typography>
+      </TableCell>
+      <TableCell align="left">
+        <Typography variant="body1">{toDate(holder.time)}</Typography>
+      </TableCell>
       <TableCell align="right">
-        <Button onClick={handleRemoveFromWatchlist}>Remove</Button>
+        <Typography variant="body1">
+          <Button onClick={handleRemoveFromWatchlist}>Remove</Button>
+        </Typography>
       </TableCell>
     </TableRow>
   );

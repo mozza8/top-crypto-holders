@@ -53,7 +53,7 @@ const DisplaySection = ({
     <Box
       sx={{
         mt: 2,
-        width: "1200px",
+        width: "1300px",
         justifyContent: "center",
         alignItems: "center",
       }}

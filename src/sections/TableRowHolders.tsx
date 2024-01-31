@@ -1,4 +1,10 @@
-import { Button, Checkbox, TableCell, TableRow } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { HolderAddress, TokenData } from "../types/types";
 import { apiKeyEtherscan } from "../constants/api";
@@ -7,6 +13,7 @@ import {
   getLastTransactionEtherscan,
 } from "../api/services/thirdParty";
 import { addToWatchlist } from "../api/services/backend";
+import { chainsIds } from "../constants/chains";
 
 type ScanResponse = {
   tokenSymbol: string;
@@ -31,6 +38,7 @@ const TableRowCheckbox = ({
   const handleAddToWatchlist = async () => {
     console.log("selectedChain", selectedChain);
     console.log("selectedChain", typeof selectedChain);
+    // const blockchain = chainsIds.find((item) => item.id = selectedChain)
 
     switch (selectedChain) {
       case "1":
@@ -46,7 +54,8 @@ const TableRowCheckbox = ({
               lastTransaction.tokenSymbol,
               lastTransaction.value,
               lastTransaction.timeStamp,
-              tokenData?.decimals
+              tokenData?.decimals,
+              "Ethereum"
             );
           }
         } catch (error) {
@@ -68,7 +77,8 @@ const TableRowCheckbox = ({
               lastTransaction.tokenSymbol,
               lastTransaction.value,
               lastTransaction.timeStamp,
-              tokenData?.decimals
+              tokenData?.decimals,
+              "Binance Smart Chain"
             );
           }
         } catch (error) {
@@ -86,16 +96,28 @@ const TableRowCheckbox = ({
         borderRadius: "10px",
       }}
     >
-      <TableCell align="left">{index + 1}</TableCell>
-      <TableCell align="left">{holder.wallet_address}</TableCell>
       <TableCell align="left">
-        {Math.trunc(holder.amount).toLocaleString("fi-FI")}
+        <Typography variant="body1"> {index + 1}</Typography>
       </TableCell>
       <TableCell align="left">
-        ${Math.trunc(holder.usd_value).toLocaleString("fi-FI")}
+        <Typography variant="body1">{holder.wallet_address}</Typography>
+      </TableCell>
+      <TableCell align="left">
+        <Typography variant="body1">
+          {Math.trunc(holder.amount).toLocaleString("fi-FI")}
+        </Typography>
+      </TableCell>
+      <TableCell align="left">
+        <Typography variant="body1">
+          ${Math.trunc(holder.usd_value).toLocaleString("fi-FI")}
+        </Typography>
       </TableCell>
       <TableCell align="right">
-        <Button onClick={handleAddToWatchlist}>Add</Button>
+        <Typography variant="body1">
+          <Button color={"primary"} onClick={handleAddToWatchlist}>
+            Add
+          </Button>
+        </Typography>
       </TableCell>
     </TableRow>
   );

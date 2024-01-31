@@ -28,29 +28,41 @@ const HoldersTable = ({
 }: HoldersTableProps) => {
   return (
     <TableContainer
-      sx={{ minWidth: 650, borderRadius: "25px" }}
+      sx={{ borderRadius: "25px" }}
       component={Paper}
-      elevation={0}
+      elevation={1}
     >
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: 20 }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "100px" }}
               align="left"
             >
               Number
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
+            <TableCell
+              sx={{ color: "whitesmoke", fontSize: 18, width: "520px" }}
+              align="left"
+            >
               Address
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
+            <TableCell
+              sx={{ color: "whitesmoke", fontSize: 18, width: "310px" }}
+              align="left"
+            >
               Token Amount
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="left">
+            <TableCell
+              sx={{ color: "whitesmoke", fontSize: 18, width: "290px" }}
+              align="left"
+            >
               Usd value
             </TableCell>
-            <TableCell sx={{ color: "whitesmoke", fontSize: 18 }} align="right">
+            <TableCell
+              sx={{ color: "whitesmoke", fontSize: 18, width: "200px" }}
+              align="right"
+            >
               Add to watchlist
             </TableCell>
           </TableRow>

@@ -69,11 +69,12 @@ export async function addToWatchlist(
   tokenSymbol: string,
   value: number,
   timeStamp: number,
-  decimals: number
+  decimals: number,
+  chain: string
 ) {
   try {
     const response = await fetch(
-      `http://localhost:5000/add-wallet-address?address=${address}&token=${tokenSymbol}&value=${value}&time=${timeStamp}&decimals=${decimals}`,
+      `http://localhost:5000/add-wallet-address?address=${address}&token=${tokenSymbol}&value=${value}&time=${timeStamp}&decimals=${decimals}&blockchain=${chain}&decimals=${decimals}`,
 
       {
         method: "GET",

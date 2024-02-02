@@ -3,7 +3,7 @@ import { apiKeyChainbase } from "../../constants/api";
 export async function getTopHolders(chainId: string, contractAddress: string) {
   try {
     const response = await fetch(
-      `http://localhost:5000/top-holders?chain_id=${chainId}&contract_address=${contractAddress}&page=1&limit=100`,
+      `https://crypto-holders-watchlist.onrender.com/top-holders?chain_id=${chainId}&contract_address=${contractAddress}&page=1&limit=100`,
       {
         method: "GET",
         headers: {
@@ -25,12 +25,15 @@ export async function getTopHolders(chainId: string, contractAddress: string) {
 
 export async function getWatchlist() {
   try {
-    const response = await fetch(`http://localhost:5000/get-wallets`, {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    });
+    const response = await fetch(
+      `https://crypto-holders-watchlist.onrender.com/get-wallets`,
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+        },
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to get wachlist");
     }
@@ -45,7 +48,7 @@ export async function getWatchlist() {
 export async function removeFromWatchlist(address: string) {
   try {
     const response = await fetch(
-      `http://localhost:5000/remove-wallet-address?address=${address}`,
+      `https://crypto-holders-watchlist.onrender.com/remove-wallet-address?address=${address}`,
       {
         method: "GET",
         headers: {
@@ -74,7 +77,7 @@ export async function addToWatchlist(
 ) {
   try {
     const response = await fetch(
-      `http://localhost:5000/add-wallet-address?address=${address}&token=${tokenSymbol}&value=${value}&time=${timeStamp}&decimals=${decimals}&blockchain=${chain}&decimals=${decimals}`,
+      `https://crypto-holders-watchlist.onrender.com/add-wallet-address?address=${address}&token=${tokenSymbol}&value=${value}&time=${timeStamp}&decimals=${decimals}&blockchain=${chain}&decimals=${decimals}`,
 
       {
         method: "GET",

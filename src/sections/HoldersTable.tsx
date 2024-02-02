@@ -30,7 +30,7 @@ const HoldersTable = ({
 }: HoldersTableProps) => {
   return (
     <TableContainer
-      sx={{ borderRadius: "25px" }}
+      sx={{ minWidth: "1020px", borderRadius: "25px", ml: 1 }}
       component={Paper}
       elevation={1}
     >

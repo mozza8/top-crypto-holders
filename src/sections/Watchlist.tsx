@@ -24,45 +24,45 @@ const Watchlist = ({ holders, handleWatchlist }: WatchlistProps) => {
   console.log("holders", holders);
   return (
     <TableContainer
-      sx={{ borderRadius: "25px" }}
+      sx={{ minWidth: "1020px", borderRadius: "25px" }}
       component={Paper}
-      elevation={0}
+      elevation={1}
     >
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "420px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "460px" }}
               align="left"
             >
               Address
             </TableCell>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "100px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "110px" }}
               align="left"
             >
               Token
             </TableCell>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "175px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "185px" }}
               align="left"
             >
               Blockchain
             </TableCell>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "205px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "240px" }}
               align="left"
             >
               Amount transacted
             </TableCell>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "125px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "155px" }}
               align="left"
             >
               Time
             </TableCell>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "230px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "270px" }}
               align="right"
             >
               Remove from watchlist

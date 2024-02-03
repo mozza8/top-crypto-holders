@@ -21,7 +21,6 @@ interface WatchlistProps {
 }
 
 const Watchlist = ({ holders, handleWatchlist }: WatchlistProps) => {
-  console.log("holders", holders);
   return (
     <TableContainer
       sx={{ minWidth: "1020px", borderRadius: "25px" }}

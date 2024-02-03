@@ -1,5 +1,6 @@
 // import dependecies
 import { Button, TableCell, TableRow, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 // import services
 import {
@@ -17,6 +18,9 @@ interface TableRowHoldersProps {
   selectedChain: string;
   inputValue: string;
   tokenData: TokenData | null | undefined;
+  setLocalWatchlistAddresses: React.Dispatch<React.SetStateAction<string[]>>;
+  localWatchlistAddresses: string[];
+  handleWatchlist: () => Promise<void>;
 }
 const TableRowHolders = ({
   holder,
@@ -24,57 +28,57 @@ const TableRowHolders = ({
   selectedChain,
   inputValue,
   tokenData,
+  localWatchlistAddresses,
+  handleWatchlist,
 }: TableRowHoldersProps) => {
+  const { enqueueSnackbar } = useSnackbar();
   const handleAddToWatchlist = async () => {
-    console.log("selectedChain", selectedChain);
-    console.log("selectedChain", typeof selectedChain);
-    // const blockchain = chainsIds.find((item) => item.id = selectedChain)
-
-    switch (selectedChain) {
-      case "1":
-        console.log("get Ether tx");
-        try {
-          const lastTransaction = await getLastTransactionEtherscan(
-            inputValue,
-            holder.wallet_address
-          );
-          if (tokenData) {
-            await addToWatchlist(
-              holder.wallet_address,
-              lastTransaction.tokenSymbol,
-              lastTransaction.value,
-              lastTransaction.timeStamp,
-              tokenData?.decimals,
-              "Ethereum"
+    if (localWatchlistAddresses.includes(holder.wallet_address)) {
+      enqueueSnackbar("Address is already on watchlist!", { variant: "error" });
+    } else {
+      switch (selectedChain) {
+        case "1":
+          try {
+            const lastTransaction = await getLastTransactionEtherscan(
+              inputValue,
+              holder.wallet_address
             );
-          }
-        } catch (error) {
-          console.log("Some error", error);
-        }
-        break;
+            if (tokenData) {
+              await addToWatchlist(
+                holder.wallet_address,
+                lastTransaction.tokenSymbol,
+                lastTransaction.value,
+                lastTransaction.timeStamp,
+                tokenData?.decimals,
+                "Ethereum"
+              );
+              handleWatchlist();
+              enqueueSnackbar("Address added!", { variant: "success" });
+            }
+          } catch (error) {}
+          break;
 
-      case "56":
-        console.log("get Bsc tx");
-        try {
-          const lastTransaction = await getLastTransactionBscScan(
-            inputValue,
-            holder.wallet_address
-          );
-          if (tokenData) {
-            console.log("lastTransaction", lastTransaction);
-            await addToWatchlist(
-              holder.wallet_address,
-              lastTransaction.tokenSymbol,
-              lastTransaction.value,
-              lastTransaction.timeStamp,
-              tokenData?.decimals,
-              "Binance Smart Chain"
+        case "56":
+          try {
+            const lastTransaction = await getLastTransactionBscScan(
+              inputValue,
+              holder.wallet_address
             );
-          }
-        } catch (error) {
-          console.log("Some error", error);
-        }
-        break;
+            if (tokenData) {
+              await addToWatchlist(
+                holder.wallet_address,
+                lastTransaction.tokenSymbol,
+                lastTransaction.value,
+                lastTransaction.timeStamp,
+                tokenData?.decimals,
+                "Binance Smart Chain"
+              );
+              handleWatchlist();
+              enqueueSnackbar("Address added!", { variant: "success" });
+            }
+          } catch (error) {}
+          break;
+      }
     }
   };
 

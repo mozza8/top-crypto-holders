@@ -1,5 +1,6 @@
 // import dependencies
 import { Button, TableCell, TableRow, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 // import services
 import { removeFromWatchlist } from "../api/services/backend";
@@ -15,13 +16,14 @@ const TableRowWatchlist = ({
   holder,
   handleWatchlist,
 }: TableRowWatchlistProps) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleRemoveFromWatchlist = async () => {
     try {
       await removeFromWatchlist(holder.address);
-    } catch (error) {
-      console.log("Error handling remove:", error);
-    }
+    } catch (error) {}
     handleWatchlist();
+    enqueueSnackbar("Address removed!", { variant: "success" });
   };
 
   const toDate = (timestamp: any) => {

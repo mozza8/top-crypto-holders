@@ -1,6 +1,6 @@
 // import dependecies
 import { Box, Tab } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -13,7 +13,7 @@ import HoldersTable from "./HoldersTable";
 import { getTopHolders, getWatchlist } from "../api/services/backend";
 
 // import types
-import { HolderAddress, TokenData } from "../types/types";
+import { HolderAddress, TokenData, WatchlistAddress } from "../types/types";
 
 interface DisplaySectionProps {
   holders: HolderAddress[];
@@ -31,28 +31,47 @@ const DisplaySection = ({
   tokenData,
 }: DisplaySectionProps) => {
   const [value, setValue] = useState("1");
-  const [watchlistAddresses, setWatchlistAddresses] = useState([]);
+  const [watchlistAddressesData, setWatchlistAddressesData] = useState<
+    WatchlistAddress[]
+  >([]);
+  const [localWatchlistAddresses, setLocalWatchlistAddresses] = useState<
+    string[]
+  >([]);
+  let localAddresses: string[] = [];
 
   const changeTable = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    handleWatchlist();
+
+    if (watchlistAddressesData) {
+      if (localWatchlistAddresses.length > watchlistAddressesData.length) {
+        setLocalWatchlistAddresses([]);
+      } else {
+        watchlistAddressesData.map((address) => {
+          if (localWatchlistAddresses.includes(address.address)) {
+          } else {
+            localWatchlistAddresses.push(address.address);
+          }
+        });
+      }
+    }
+  }, [watchlistAddressesData.length, localWatchlistAddresses.length]);
+
   const handleWatchlist = async () => {
     try {
       const watchlistData = await getWatchlist();
-      setWatchlistAddresses(watchlistData);
-    } catch (error) {
-      console.log("Error:", error);
-    }
+      setWatchlistAddressesData(watchlistData);
+    } catch (error) {}
   };
 
   const handleTopHolders = async () => {
     try {
       const topHolders = await getTopHolders(selectedChain, inputValue);
       setTokenHolders(topHolders);
-    } catch (error) {
-      console.log("Error getting holders");
-    }
+    } catch (error) {}
   };
 
   return (
@@ -85,12 +104,16 @@ const DisplaySection = ({
             selectedChain={selectedChain}
             inputValue={inputValue}
             tokenData={tokenData}
+            handleWatchlist={handleWatchlist}
+            setLocalWatchlistAddresses={setLocalWatchlistAddresses}
+            localWatchlistAddresses={localWatchlistAddresses}
           />
         </TabPanel>
         <TabPanel value="2">
           <Watchlist
-            holders={watchlistAddresses}
+            holders={watchlistAddressesData}
             handleWatchlist={handleWatchlist}
+            // localWatchlistAddresses={localWatchlistAddresses}
           />
         </TabPanel>
       </TabContext>

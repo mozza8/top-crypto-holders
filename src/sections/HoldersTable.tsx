@@ -20,6 +20,9 @@ interface HoldersTableProps {
   selectedChain: string;
   inputValue: string;
   tokenData: TokenData | null | undefined;
+  setLocalWatchlistAddresses: React.Dispatch<React.SetStateAction<string[]>>;
+  localWatchlistAddresses: string[];
+  handleWatchlist: () => Promise<void>;
 }
 
 const HoldersTable = ({
@@ -27,6 +30,9 @@ const HoldersTable = ({
   selectedChain,
   inputValue,
   tokenData,
+  localWatchlistAddresses,
+  setLocalWatchlistAddresses,
+  handleWatchlist,
 }: HoldersTableProps) => {
   return (
     <TableContainer
@@ -79,6 +85,9 @@ const HoldersTable = ({
                 selectedChain={selectedChain}
                 inputValue={inputValue}
                 tokenData={tokenData}
+                handleWatchlist={handleWatchlist}
+                setLocalWatchlistAddresses={setLocalWatchlistAddresses}
+                localWatchlistAddresses={localWatchlistAddresses}
               />
             ))}
         </TableBody>

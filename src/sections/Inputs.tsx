@@ -45,7 +45,6 @@ const Inputs = ({
   const handleChainChange = (event: SelectChangeEvent) => {
     setSelectedChain(event.target.value);
     setInputValue("");
-    console.log("selected chain", event.target.value);
   };
 
   const handleAddress = (event: any) => {
@@ -59,9 +58,7 @@ const Inputs = ({
 
       const dataToken = await getTokenData(selectedChain, inputValue);
       setTokenData(dataToken);
-    } catch (error) {
-      console.log("Error", error);
-    }
+    } catch (error) {}
   };
 
   return (

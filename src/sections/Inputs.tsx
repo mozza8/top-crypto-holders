@@ -94,7 +94,7 @@ const Inputs = ({
             </FormControl>
           </Stack>
 
-          <Stack direction={"column"} spacing={2} sx={{ width: "45vh" }}>
+          <Stack direction={"column"} spacing={2} sx={{ width: "30vh" }}>
             <Typography variant="h6">Paste address</Typography>
             <FormControl fullWidth sx={{ m: 1 }} variant="filled">
               <Input

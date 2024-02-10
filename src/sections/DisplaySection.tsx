@@ -84,7 +84,11 @@ const DisplaySection = ({
       }}
     >
       <TabContext value={value}>
-        <TabList onChange={changeTable} aria-label="basic tabs example">
+        <TabList
+          onChange={changeTable}
+          aria-label="basic tabs example"
+          sx={{ ml: 4 }}
+        >
           <Tab
             key="Tab one"
             label="Holders"

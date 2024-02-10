@@ -31,7 +31,7 @@ const Watchlist = ({ holders, handleWatchlist }: WatchlistProps) => {
         <TableHead>
           <TableRow>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "460px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "440px" }}
               align="left"
             >
               Address
@@ -61,7 +61,7 @@ const Watchlist = ({ holders, handleWatchlist }: WatchlistProps) => {
               Time
             </TableCell>
             <TableCell
-              sx={{ color: "whitesmoke", fontSize: 18, width: "270px" }}
+              sx={{ color: "whitesmoke", fontSize: 18, width: "290px" }}
               align="right"
             >
               Remove from watchlist

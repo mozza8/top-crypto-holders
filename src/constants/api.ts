@@ -4,6 +4,5 @@ export const apiKeyMoralis =
 export const apiKeyEtherscan = "GVJYN3HDBUMMNAKT5K4MYKBFF6VBUVK5ZK";
 export const apiKeyBscScan = "3DI33U1D2SEZSJTP4WPHK1W4MGW2Z56QTI";
 
-export const backendUrl = "http://127.0.0.1:5000";
-
-// export const backendUrl = 'https://crypto-holders-watchlist.onrender.com'
+// export const backendUrl = "http://127.0.0.1:5000";
+export const backendUrl = "https://crypto-holders-watchlist.onrender.com";
